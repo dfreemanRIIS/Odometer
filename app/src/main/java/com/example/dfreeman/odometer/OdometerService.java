@@ -9,6 +9,7 @@ import android.location.LocationManager;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.widget.Toast;
 
 public class OdometerService extends Service {
 
@@ -44,7 +45,11 @@ public class OdometerService extends Service {
             }
         };
         LocationManager locManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, listener);
+        try {
+            locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, listener);
+        } catch(SecurityException e) {
+            Toast.makeText(getApplicationContext(), "BOI", Toast.LENGTH_LONG).show();
+        }
     }
 
     public class OdometerBinder extends Binder {
