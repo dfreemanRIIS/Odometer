@@ -22,7 +22,7 @@ public class OdometerService extends Service {
         LocationListener listener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                if (lastLocation ==null) {
+                if (lastLocation == null) {
                     lastLocation = location;
                 }
                 distanceInMeters += location.distanceTo(lastLocation);
@@ -45,6 +45,7 @@ public class OdometerService extends Service {
             }
         };
         LocationManager locManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+
         try {
             locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, listener);
         } catch(SecurityException e) {
